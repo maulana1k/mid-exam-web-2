@@ -1,0 +1,43 @@
+@extends('layouts.app') @section('content')
+
+<div class="container mt-4">
+    <div class="p-2">
+        <h2>Data Jenis Baju</h2>
+        <a class="btn btn-success my-2" href="{{ route('jenis.create') }}">
+            Tambah </a>
+        <table id="myTable" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Jenis</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($jenis as $j)
+                <tr>
+                    <td>{{$i++}}</td>
+                    <td>{{$j->jenis}}</td>
+                    <td>
+                        <form action="{{ route('jenis.destroy',$j->id) }}" method="POST">
+                            {{-- <a class="btn btn-primary" href="{{ route('jenis.edit',$p->id) }}">Edit</a> --}}
+                            @csrf @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#myTable").DataTable();
+    });
+</script>
+@endsection
